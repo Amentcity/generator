@@ -25,8 +25,12 @@ public class MainTemplateConfig {
      */
     private Boolean loop;
 
-    public MainTemplateConfig( ) {
-        this.author = "时光";
-        this.outputText = "输出结果";
+    @Override
+    public String toString() {
+        return "MainTemplateConfig{" +
+                "author='" + author + '\'' +
+                ", outputText='" + outputText + '\'' +
+                ", loop=" + loop +
+                '}';
     }
 }
