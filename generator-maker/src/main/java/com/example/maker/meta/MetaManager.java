@@ -21,7 +21,8 @@ public class MetaManager {
     public static Meta initMate() {
         String mateJson = ResourceUtil.readUtf8Str("meta.json");
         Meta newMeta = JSONUtil.toBean(mateJson, Meta.class);
-        //TODO 校验配置文件，处理默认值
+        // 校验配置文件，处理默认值
+        MetaValidator.doValidAndFill(newMeta);
         return newMeta;
     }
 

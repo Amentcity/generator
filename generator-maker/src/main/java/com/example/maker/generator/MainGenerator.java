@@ -10,6 +10,7 @@ import freemarker.template.TemplateException;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
 
 public class MainGenerator {
     public static void main(String[] args) throws TemplateException, IOException, InterruptedException {
@@ -102,6 +103,17 @@ public class MainGenerator {
         String jarPath = "target/"+jarName;
         ScriptGenerator.doGenerate(shellOutputFilePath, jarPath);
 
-
+        // 生成精简版的程序，产物包
+        String distOutputPath = outputPath+"-dist";
+        // - 拷贝jar包
+        String targetAbsolutePath = distOutputPath+File.separator+"target";
+        FileUtil.mkdir(targetAbsolutePath);
+        String jarAbsolutePath = outputPath+File.separator+jarPath;
+        FileUtil.copy(jarAbsolutePath,targetAbsolutePath,true);
+        // - 拷贝原始文件
+        FileUtil.copy(shellOutputFilePath,distOutputPath,true);
+        FileUtil.copy(shellOutputFilePath+".bat",distOutputPath,true);
+        // - 拷贝模板文件
+        FileUtil.copy(sourceCopyDestPath,distOutputPath,true);
     }
 }
